@@ -4,7 +4,10 @@ Console::Console() {
 	in = GetStdHandle(STD_INPUT_HANDLE);
 	out = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleMode(in, ENABLE_MOUSE_INPUT | ENABLE_EXTENDED_FLAGS);
+	SetConsoleMode(out , CONSOLE_FULLSCREEN_MODE);
 	SetConsoleOutputCP(CP_UTF8);
+	HWND hWnd = GetConsoleWindow();
+	ShowWindow(hWnd, SW_SHOWMAXIMIZED);
 }
 
 HANDLE Console::stdIn() {
