@@ -1,4 +1,8 @@
 #include "RNG.h"
+#include "Console.h"
+#include "ButtonPanel.h"
+#include "Wallet.h"
+#include "Cabinet.h"
 #include <iostream>
 #include <fstream>
 
@@ -48,5 +52,22 @@ void main(int argc, char* argv[]) {
 	RNG rng = RNG();
 	if (argc > 1) {
 		runRtpTest(rng, argv[1]);
+	} else {
+		Wallet wallet = Wallet(10000);
+		Console console = Console();
+		Cabinet cabinet = Cabinet(&console, &wallet);
+		while (wallet.getBalance() >= 20) {
+			UserInput input = cabinet.getButtons()->acceptUserInput();
+			if (input == EXIT) {
+				return;
+			} else if (input == SPIN) {
+				wallet.takeCredit(20);
+				REEL_POSITIONS result = rng.generateReelPositions();
+				unsigned int prize = getPrize(result);
+				wallet.giveCredit(prize);
+				console.setColourAndPosition(COLOUR_BRIGHT_WHITE, COLOUR_BLACK, 50, 40);
+				printf("%s | %s | %s\n", getSymbolName(result.reel1).c_str(), getSymbolName(result.reel2).c_str(), getSymbolName(result.reel3).c_str());
+			}
+		}
 	}
 }

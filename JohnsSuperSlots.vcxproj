@@ -139,7 +139,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="JohnsSuperSlots.cpp" />
+    <ClCompile Include="Cabinet.cpp" />
+    <ClCompile Include="Console.cpp" />
+    <ClCompile Include="Driver.cpp" />
+    <ClCompile Include="ButtonPanel.cpp" />
+    <ClCompile Include="Symbols.cpp" />
+    <ClCompile Include="RNG.cpp" />
+    <ClCompile Include="Wallet.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ButtonPanel.h" />
+    <ClInclude Include="Cabinet.h" />
+    <ClInclude Include="Console.h" />
+    <ClInclude Include="RNG.h" />
+    <ClInclude Include="Wallet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

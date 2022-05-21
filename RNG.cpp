@@ -49,12 +49,3 @@ unsigned int RNG::nextInt(unsigned int bound) {
 	} while (result > max);
 	return result % bound;
 }
-
-void print(SYMBOL symbol) {
-	if (symbol == CHERRY) printf("CHERRY");
-	else if (symbol == BELL) printf("BELL");
-	else if (symbol == LEMMON)printf("LEMMON");
-	else if (symbol == ORANGE)printf("ORANGE");
-	else if (symbol == STAR)printf("STAR");
-	else if (symbol == SEVEN)printf("SEVEN");
-}

@@ -1,37 +1,11 @@
-#include <iostream>
-#include <windows.h>
+#include "Console.h"
 
-HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
-
-enum COLOUR {
-    BLACK = 0,
-    BLUE = 1,
-    GREEN = 2,
-    AQUA = 3,
-    RED = 4,
-    PURPLE = 5,
-    ORANGE = 6,
-    WHITE = 7,
-    GREY = 8,
-    LIGHT_BLUE = 9,
-    LIGHT_GREEN = 10,
-    LIGHT_AQUA = 11,
-    LIGHT_RED = 12,
-    LIGHT_PURPLE = 13,
-    YELLOW = 14,
-    BRIGHT_WHITE = 15
-};
-
-void setColour(COLOUR foreground, COLOUR background) {
-    SetConsoleTextAttribute(out, foreground +(16* background));
-}
-
-void cherry() {
-    setColour(GREEN, BLACK);
+void cherry(Console console) {
+    console.setColour(COLOUR_GREEN, COLOUR_BLACK);
     printf("     |\\        \n");
     printf("    |   \\      \n");
     printf("    |    \\     \n");
-    setColour(RED, BLACK);
+    console.setColour(COLOUR_RED, COLOUR_BLACK);
     printf(".coovaa,   \\   \n");
     printf("88888888.coovaa,\n");
     printf("8888888800000000\n");
@@ -39,8 +13,8 @@ void cherry() {
     printf("        `YbbbdP'\n");
 }
 
-void bell() {
-    setColour(ORANGE, BLACK);
+void bell(Console console) {
+    console.setColour(COLOUR_ORANGE, COLOUR_BLACK);
     printf("                \n");
     printf("      .ca.      \n");
     printf("     (*88*)     \n");
@@ -48,15 +22,15 @@ void bell() {
     printf("   (88888888)   \n");
     printf("  .888****888.  \n");
     printf(" (8*__,");
-    setColour(YELLOW, BLACK);
+    console.setColour(COLOUR_YELLOW, COLOUR_BLACK);
     printf("()");
-    setColour(ORANGE, BLACK);
+    console.setColour(COLOUR_ORANGE, COLOUR_BLACK);
     printf(",__*8) \n");
     printf("                \n");
 }
 
-void lemmon() {
-    setColour(YELLOW, BLACK);
+void lemmon(Console console) {
+    console.setColour(COLOUR_YELLOW, COLOUR_BLACK);
     printf("       ...oa.   \n");
     printf("      8.cao88p  \n");
     printf("    8888888888  \n");
@@ -67,19 +41,19 @@ void lemmon() {
     printf("   `            \n");
 }
 
-void orange() {
-    setColour(ORANGE, BLACK);
+void orange(Console console) {
+    console.setColour(COLOUR_ORANGE, COLOUR_BLACK);
     printf("                \n");
     printf("    .cooaa,     \n");
     printf("   '8888");
-    setColour(GREEN, BLACK);
+    console.setColour(COLOUR_GREEN, COLOUR_BLACK);
     printf(".8.");
-    setColour(ORANGE, BLACK);
+    console.setColour(COLOUR_ORANGE, COLOUR_BLACK);
     printf("8,   \n");
     printf("  '888888");
-    setColour(GREEN, BLACK);
+    console.setColour(COLOUR_GREEN, COLOUR_BLACK);
     printf("`");
-    setColour(ORANGE, BLACK);
+    console.setColour(COLOUR_ORANGE, COLOUR_BLACK);
     printf("888,  \n");
     printf(" 1888888888888; \n");
     printf("  888888888888  \n");
@@ -87,8 +61,8 @@ void orange() {
     printf("    `YbbbdP'    \n");
 }
 
-void star() {
-    setColour(PURPLE, BLACK);
+void star(Console console) {
+    console.setColour(COLOUR_PURPLE, COLOUR_BLACK);
     printf("       n        \n");
     printf("      /88\\     \n");
     printf("  ___/8888\\___\n");
@@ -99,8 +73,8 @@ void star() {
     printf("  :`        `;    \n");
 }
 
-void seven() {
-    setColour(BLUE, BLACK);
+void seven(Console console) {
+    console.setColour(COLOUR_BLUE, COLOUR_BLACK);
     printf(".==============.\n");
     printf("`===========  =`\n");
     printf("           # #` \n");
@@ -109,14 +83,4 @@ void seven() {
     printf("        # #`    \n");
     printf("       # #`     \n");
     printf("      ###`      \n");
-}
-
-int main() {
-    cherry();
-    bell();
-    lemmon();
-    orange();
-    star();
-    seven();
-    setColour(BRIGHT_WHITE, BLACK);
 }
