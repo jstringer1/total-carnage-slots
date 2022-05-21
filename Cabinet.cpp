@@ -1,4 +1,5 @@
 #include "Cabinet.h";
+#include "Symbols.h"
 
 Cabinet::Cabinet(Console* console, Wallet* wallet) {
 	Cabinet::console = console;
@@ -29,4 +30,10 @@ void Cabinet::onCreditChangeEvent() {
 	printf("                  ");
 	console->setPosition(50, 51);
 	printf(" BALANCE: \xC2\xA3%.2f ", balance);
+}
+
+void Cabinet::showSpinningReels(REEL_POSITIONS result) {
+	printSymbol(console, result.reel1, 20, 40);
+	printSymbol(console, result.reel2, 50, 40);
+	printSymbol(console, result.reel3, 80, 40);
 }

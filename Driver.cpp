@@ -63,10 +63,9 @@ void main(int argc, char* argv[]) {
 			} else if (input == SPIN) {
 				wallet.takeCredit(20);
 				REEL_POSITIONS result = rng.generateReelPositions();
+				cabinet.showSpinningReels(result);
 				unsigned int prize = getPrize(result);
 				wallet.giveCredit(prize);
-				console.setColourAndPosition(COLOUR_BRIGHT_WHITE, COLOUR_BLACK, 50, 40);
-				printf("%s | %s | %s\n", getSymbolName(result.reel1).c_str(), getSymbolName(result.reel2).c_str(), getSymbolName(result.reel3).c_str());
 			}
 		}
 	}

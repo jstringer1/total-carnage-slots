@@ -53,5 +53,8 @@
     <ClInclude Include="Cabinet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Symbols.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
