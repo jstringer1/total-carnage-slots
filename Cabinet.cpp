@@ -7,11 +7,13 @@ Cabinet::Cabinet(Console* console, Wallet* wallet) {
 	Cabinet::wallet = wallet;
 	Cabinet::buttons =  new ButtonPanel(console);
 	console->setColourAndPosition(COLOUR_BLACK, COLOUR_GREY,0,0);
-	for (int i = 0; i < 200; i++) printf("                                                                                                                                                                                                                                                                       \n");
+	for (int i = 0; i < 120; i++) printf("                                                                                                                                                                                                                                                                       \n");
 	console->setColourAndPosition(COLOUR_BLACK, COLOUR_BLACK, 0, 0);
-	for (int i = 0; i < 100; i++) printf("                                                                                                                        \n");
+	for (int i = 0; i < 55; i++) printf("                                                                                                                        \n");
 	onCreditChangeEvent();
 	wallet->registerListener(this);
+
+	printTitle(console, 24, 1);
 
 	printSymbol(console, CHERRY, 20, 40, COLOUR_BLACK);
 	printSymbol(console, CHERRY, 50, 40, COLOUR_BLACK);

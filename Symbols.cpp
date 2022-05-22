@@ -1,6 +1,46 @@
 #include "Console.h"
 #include "Symbols.h"
 
+void printTitle(Console* console, int x, int y) {
+    console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, x+12, y);
+    printf("________   ______  ________   ______   __");
+    console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, x + 12, y+1);
+    printf("|        \ /      \|        \ /      \ |  \\");
+    console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, x + 12, y+2);
+    printf("\\$$$$$$$$ | $$$$$$\\\\$$$$$$$$ | $$$$$$\ | $$");
+    console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, x + 12, y+3);
+    printf("   | $$   | $$  | $$  | $$   | $$__| $$| $$");
+    console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, x + 12, y+4);
+    printf("   | $$   | $$  | $$  | $$   | $$    $$| $$");
+    console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, x + 12, y+5);
+    printf("   | $$   | $$  | $$  | $$   | $$$$$$$$| $$");
+    console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, x + 12, y+6);
+    printf("   | $$   | $$__/ $$  | $$   | $$  | $$| $$_____");
+    console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, x + 12, y+7);
+    printf("   | $$    \\$$    $$  | $$   | $$  | $$| $$     \\");
+    console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, x + 12, y+8);
+    printf("    \\$$     \\$$$$$$    \\$$    \\$$   \\$$ \\$$$$$$$$");
+
+    console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, x, y+10);
+    printf("  ______    ______   _______   __    __   ______    ______   ________");
+    console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, x, y + 11);
+    printf(" /      \\  /      \\ |       \\ |  \\  |  \\ /      \\  /      \\ |        \\");
+    console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, x, y + 12);
+    printf("|  $$$$$$\\|  $$$$$$\\| $$$$$$$\\| $$\\ | $$|  $$$$$$\\|  $$$$$$\\| $$$$$$$$");
+    console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, x, y + 13);
+    printf("| $$   \\$$| $$__| $$| $$__| $$| $$$\\| $$| $$__| $$| $$ __\\$$| $$__ ");
+    console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, x, y + 14);
+    printf("| $$      | $$    $$| $$    $$| $$$$\\ $$| $$    $$| $$|    \\| $$  \\");
+    console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, x, y + 15);
+    printf("| $$   __ | $$$$$$$$| $$$$$$$\\| $$\\$$ $$| $$$$$$$$| $$ \\$$$$| $$$$$");
+    console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, x, y + 16);
+    printf("| $$__/  \\| $$  | $$| $$  | $$| $$ \\$$$$| $$  | $$| $$__| $$| $$_____ ");
+    console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, x, y + 17);
+    printf(" \\$$    $$| $$  | $$| $$  | $$| $$  \\$$$| $$  | $$ \\$$    $$| $$     \\");
+    console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, x, y + 18);
+    printf("  \\$$$$$$  \\$$   \\$$ \\$$   \\$$ \\$$   \\$$ \\$$   \\$$  \\$$$$$$  \\$$$$$$$$");
+}
+
 void printCherry(Console* console, int x, int y, COLOUR background) {
     console->setColourAndPosition(COLOUR_GREEN, background, x, y);
     printf("                ");
