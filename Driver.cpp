@@ -5,6 +5,7 @@
 #include "Cabinet.h"
 #include <iostream>
 #include <fstream>
+#include "SoundEffect.h"
 
 std::string getSymbolName(SYMBOL symbol) {
 	if (symbol == CHERRY) return std::string("CHERRY");
@@ -49,6 +50,8 @@ void runRtpTest(RNG rng, char* outfile) {
 }
 
 void main(int argc, char* argv[]) {
+	playBackgroundMusic();
+	playILoveIt();
 	RNG rng = RNG();
 	if (argc > 1) {
 		runRtpTest(rng, argv[1]);
@@ -61,6 +64,7 @@ void main(int argc, char* argv[]) {
 			if (input == EXIT) {
 				return;
 			} else if (input == SPIN) {
+				playGoodLuck();
 				wallet.takeCredit(20);
 				REEL_POSITIONS result = rng.generateReelPositions();
 				cabinet.showSpinningReels(result);

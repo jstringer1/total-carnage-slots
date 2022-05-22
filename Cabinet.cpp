@@ -1,5 +1,6 @@
-#include "Cabinet.h";
+#include "Cabinet.h"
 #include "Symbols.h"
+#include "SoundEffect.h"
 
 Cabinet::Cabinet(Console* console, Wallet* wallet) {
 	Cabinet::console = console;
@@ -116,6 +117,8 @@ void Cabinet::showSpinningReels(REEL_POSITIONS result) {
 	}
 
 	if (result.reel1 == result.reel2 && result.reel2 == result.reel3) {
+		if (result.reel1 == BELL) playILoveIt();
+		else playBigPrizes();
 		for (int i = 0; i < 5; i++) {
 			printSymbol(console, result.reel1, 20, 30, COLOUR_WHITE);
 			printSymbol(console, result.reel2, 50, 30, COLOUR_WHITE);
@@ -127,6 +130,7 @@ void Cabinet::showSpinningReels(REEL_POSITIONS result) {
 			Sleep(25);
 		}
 	} else if (result.reel1 == result.reel2) {
+		playBigMoney();
 		for (int i = 0; i < 5; i++) {
 			printSymbol(console, result.reel1, 20, 30, COLOUR_WHITE);
 			printSymbol(console, result.reel2, 50, 30, COLOUR_WHITE);
@@ -135,5 +139,9 @@ void Cabinet::showSpinningReels(REEL_POSITIONS result) {
 			printSymbol(console, result.reel2, 50, 30, COLOUR_BLACK);
 			Sleep(150);
 		}
+	}
+	else {
+		playTotalCarnage();
+		Sleep(1000);
 	}
 }

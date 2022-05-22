@@ -143,6 +143,7 @@
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="Driver.cpp" />
     <ClCompile Include="ButtonPanel.cpp" />
+    <ClCompile Include="SoundEffect.cpp" />
     <ClCompile Include="Symbols.cpp" />
     <ClCompile Include="RNG.cpp" />
     <ClCompile Include="Wallet.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Cabinet.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="RNG.h" />
+    <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="Symbols.h" />
     <ClInclude Include="Wallet.h" />
   </ItemGroup>
