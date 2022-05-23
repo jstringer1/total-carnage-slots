@@ -1,10 +1,10 @@
 #include "Cabinet.h"
 #include "Symbols.h"
-#include "SoundEffect.h"
 
-Cabinet::Cabinet(Console* console, Wallet* wallet) {
+Cabinet::Cabinet(Console* console, Wallet* wallet, SoundController *sound) {
 	Cabinet::console = console;
 	Cabinet::wallet = wallet;
+	Cabinet::sound = sound;
 	Cabinet::buttons =  new ButtonPanel(console);
 	console->setColourAndPosition(COLOUR_BLACK, COLOUR_GREY,0,0);
 	for (int i = 0; i < 120; i++) printf("                                                                                                                                                                                                                                                                       \n");
@@ -119,8 +119,8 @@ void Cabinet::showSpinningReels(REEL_POSITIONS result) {
 	}
 
 	if (result.reel1 == result.reel2 && result.reel2 == result.reel3) {
-		if (result.reel1 == BELL) playILoveIt();
-		else playBigPrizes();
+		if (result.reel1 == BELL) sound->playILoveIt();
+		else sound->playBigPrizes();
 		for (int i = 0; i < 5; i++) {
 			printSymbol(console, result.reel1, 20, 30, COLOUR_WHITE);
 			printSymbol(console, result.reel2, 50, 30, COLOUR_WHITE);
@@ -132,7 +132,7 @@ void Cabinet::showSpinningReels(REEL_POSITIONS result) {
 			Sleep(25);
 		}
 	} else if (result.reel1 == result.reel2) {
-		playBigMoney();
+		sound->playBigMoney();
 		for (int i = 0; i < 5; i++) {
 			printSymbol(console, result.reel1, 20, 30, COLOUR_WHITE);
 			printSymbol(console, result.reel2, 50, 30, COLOUR_WHITE);
@@ -143,7 +143,7 @@ void Cabinet::showSpinningReels(REEL_POSITIONS result) {
 		}
 	}
 	else {
-		playTotalCarnage();
+		sound->playTotalCarnage();
 		Sleep(1000);
 	}
 }

@@ -152,10 +152,14 @@
     <ClInclude Include="ButtonPanel.h" />
     <ClInclude Include="Cabinet.h" />
     <ClInclude Include="Console.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="RNG.h" />
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="Symbols.h" />
     <ClInclude Include="Wallet.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="JohnsSuperSlots.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

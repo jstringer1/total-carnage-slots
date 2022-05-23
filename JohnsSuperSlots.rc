@@ -1,0 +1,8 @@
+#include "resource.h"
+
+IDR_MUSIC		RCDATA 	"sfx\\Music.mp3"
+IDR_BIGMONEY	RCDATA 	"sfx\\BigMoney.mp3"
+IDR_ILOVEIT		RCDATA 	"sfx\\BigMoneyBigPrizesILoveIt.mp3"
+IDR_BIGPRIZES	RCDATA 	"sfx\\BigPrizes.mp3"
+IDR_GOODLUCK	RCDATA 	"sfx\\GoodLuckYoullNeedIt.mp3"
+IDR_CARNAGE		RCDATA 	"sfx\\TotalCarnage.mp3"

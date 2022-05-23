@@ -1,24 +1,57 @@
 #include "SoundEffect.h"
+#include "resource.h"
 #include <Windows.h>
+#include <fstream>
 #pragma comment(lib, "Winmm.lib")
 
-void playBackgroundMusic() {
-	mciSendString(L"open \"C:\\Users\\john.stringer\\Downloads\\Music.mp3\" type mpegvideo alias BACKGROUND_MUSIC", NULL, 0, NULL);
-	mciSendString(L"play BACKGROUND_MUSIC repeat", NULL, 0, NULL);
+SoundController::SoundController() {
+	loadSoundEffect(IDR_MUSIC, L"MUSIC");
+	mciSendString(L"play MUSIC repeat", NULL, 0, NULL);
+
+	loadSoundEffect(IDR_BIGMONEY, L"BIG_MONEY");
+	loadSoundEffect(IDR_BIGPRIZES, L"BIG_PRIZES");
+	loadSoundEffect(IDR_CARNAGE, L"TOTAL_CARNAGE");
+	loadSoundEffect(IDR_GOODLUCK, L"GOOD_LUCK");
+	loadSoundEffect(IDR_ILOVEIT, L"LOVE_IT");
+
 }
 
-bool goodluckopen = false;
-bool bigmoneyopen = false;
-bool bigprizesopen = false;
-bool iloveitopen = false;
-bool totalcarnageopen = false;
+void SoundController::playGoodLuck() {
+	closeanyopen();
+	mciSendString(L"play GOOD_LUCK", NULL, 0, NULL);
+	goodluckopen = true;
+}
 
-void closeanyopen() {
+void SoundController::playBigMoney() {
+	closeanyopen();
+	mciSendString(L"play BIG_MONEY", NULL, 0, NULL);
+	bigmoneyopen = true;
+}
+
+void SoundController::playBigPrizes() {
+	closeanyopen();
+	mciSendString(L"play BIG_PRIZES", NULL, 0, NULL);
+	bigprizesopen = true;
+}
+
+void SoundController::playILoveIt() {
+	closeanyopen();
+	mciSendString(L"play LOVE_IT", NULL, 0, NULL);
+	iloveitopen = true;
+}
+
+void SoundController::playTotalCarnage() {
+	closeanyopen();
+	mciSendString(L"play TOTAL_CARNAGE", NULL, 0, NULL);
+	totalcarnageopen = true;
+}
+
+void SoundController::closeanyopen() {
 	if (goodluckopen) mciSendString(L"close GOOD_LUCK", NULL, 0, NULL);
 	if (bigmoneyopen) mciSendString(L"close BIG_MONEY", NULL, 0, NULL);
 	if (bigprizesopen) mciSendString(L"close BIG_PRIZES", NULL, 0, NULL);
 	if (iloveitopen) mciSendString(L"close LOVE_IT", NULL, 0, NULL);
-	if(totalcarnageopen) mciSendString(L"close TOTAL_CARNAGE", NULL, 0, NULL);
+	if (totalcarnageopen) mciSendString(L"close TOTAL_CARNAGE", NULL, 0, NULL);
 	goodluckopen = false;
 	bigmoneyopen = false;
 	bigprizesopen = false;
@@ -26,37 +59,22 @@ void closeanyopen() {
 	totalcarnageopen = false;
 }
 
-void playGoodLuck() {
-	closeanyopen();
-	mciSendString(L"open \"C:\\Users\\john.stringer\\Downloads\\GoodLuckYoullNeedIt.mp3\" type mpegvideo alias GOOD_LUCK", NULL, 0, NULL);
-	mciSendString(L"play GOOD_LUCK", NULL, 0, NULL);
-	goodluckopen = true;
-}
+void SoundController::loadSoundEffect(int id, const wchar_t* name) {
+	HRSRC res = FindResource(NULL, MAKEINTRESOURCE(id), RT_RCDATA);
+	char* data = (char*)LockResource(LoadResource(NULL, res));
+	DWORD size = SizeofResource(NULL, res);
 
-void playBigMoney() {
-	closeanyopen();
-	mciSendString(L"open \"C:\\Users\\john.stringer\\Downloads\\BigMoney.mp3\" type mpegvideo alias BIG_MONEY", NULL, 0, NULL);
-	mciSendString(L"play BIG_MONEY", NULL, 0, NULL);
-	bigmoneyopen = true;
-}
+	wchar_t path[MAX_PATH];
+	GetTempPath(MAX_PATH, path);
+	wchar_t fullpath[MAX_PATH];
+	swprintf_s(fullpath, MAX_PATH, L"%s%s.mp3", path, name);
 
-void playBigPrizes() {
-	closeanyopen();
-	mciSendString(L"open \"C:\\Users\\john.stringer\\Downloads\\BigPrizes.mp3\" type mpegvideo alias BIG_PRIZES", NULL, 0, NULL);
-	mciSendString(L"play BIG_PRIZES", NULL, 0, NULL);
-	bigprizesopen = true;
-}
+	std::ofstream out;
+	out.open(fullpath, std::ios::binary | std::ios::out);
+	out.write(data, size);
+	out.close();
 
-void playILoveIt() {
-	closeanyopen();
-	mciSendString(L"open \"C:\\Users\\john.stringer\\Downloads\\BigMoneyBigPrizesILoveIt.mp3\" type mpegvideo alias LOVE_IT", NULL, 0, NULL);
-	mciSendString(L"play LOVE_IT", NULL, 0, NULL);
-	iloveitopen = true;
-}
-
-void playTotalCarnage() {
-	closeanyopen();
-	mciSendString(L"open \"C:\\Users\\john.stringer\\Downloads\\TotalCarnage.mp3\" type mpegvideo alias TOTAL_CARNAGE", NULL, 0, NULL);
-	mciSendString(L"play TOTAL_CARNAGE", NULL, 0, NULL);
-	totalcarnageopen = true;
+	wchar_t command[1024];
+	swprintf_s(command, 1024, L"open \"%s\" type mpegvideo alias %s", fullpath, name);
+	mciSendString(&command[0], NULL, 0, NULL);
 }

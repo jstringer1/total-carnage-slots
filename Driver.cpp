@@ -7,6 +7,7 @@
 #include <fstream>
 #include "SoundEffect.h"
 
+
 std::string getSymbolName(SYMBOL symbol) {
 	if (symbol == CHERRY) return std::string("CHERRY");
 	else if (symbol == BELL) return std::string("BELL");
@@ -50,21 +51,21 @@ void runRtpTest(RNG rng, char* outfile) {
 }
 
 void main(int argc, char* argv[]) {
-	playBackgroundMusic();
-	playILoveIt();
 	RNG rng = RNG();
 	if (argc > 1) {
 		runRtpTest(rng, argv[1]);
 	} else {
+		SoundController sound = SoundController();
+		sound.playILoveIt();
 		Wallet wallet = Wallet(10000);
 		Console console = Console();
-		Cabinet cabinet = Cabinet(&console, &wallet);
+		Cabinet cabinet = Cabinet(&console, &wallet, &sound);
 		while (wallet.getBalance() >= 20) {
 			UserInput input = cabinet.getButtons()->acceptUserInput();
 			if (input == EXIT) {
 				return;
 			} else if (input == SPIN) {
-				playGoodLuck();
+				sound.playGoodLuck();
 				wallet.takeCredit(20);
 				REEL_POSITIONS result = rng.generateReelPositions();
 				cabinet.showSpinningReels(result);
