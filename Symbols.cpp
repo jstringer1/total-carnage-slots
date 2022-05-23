@@ -46,18 +46,18 @@ void printCherry(Console* console, int x, int y, COLOUR background) {
     printf("                ");
     if (y >= 48) return;
     console->setPosition(x, y+1);
-    printf("     |\\        ");
+    printf("     |\\         ");
     if (y >= 47) return;
     console->setPosition(x, y+2);
-    printf("    |   \\      ");
+    printf("    |   \\       ");
     if (y >= 46) return;
     console->setPosition(x, y+3);
-    printf("    |    \\     ");
+    printf("    |    \\      ");
     if (y >= 45) return;
     console->setColourAndPosition(COLOUR_RED, background, x, y+4);
     printf(".coovaa,   ");
     console->setColourAndPosition(COLOUR_GREEN, background, x+11, y+4);
-    printf("\\   ");
+    printf("\\    ");
     if (y >= 44) return;
     console->setColourAndPosition(COLOUR_RED, background, x, y+5);
     printf("88888888.coovaa,");
@@ -70,6 +70,9 @@ void printCherry(Console* console, int x, int y, COLOUR background) {
     if (y >= 41) return;
     console->setPosition(x, y+8);
     printf("        `YbbbdP'");
+    if (y >= 40) return;
+    console->setPosition(x, y + 9);
+    printf("                ");
 }
 
 void printBell(Console* console, int x, int y, COLOUR background) {
@@ -103,6 +106,9 @@ void printBell(Console* console, int x, int y, COLOUR background) {
     if (y >= 41) return;
     console->setPosition(x, y + 8);
     printf("                ");
+    if (y >= 40) return;
+    console->setPosition(x, y + 9);
+    printf("                ");
 }
 
 void printLemmon(Console *console, int x, int y, COLOUR background) {
@@ -132,6 +138,9 @@ void printLemmon(Console *console, int x, int y, COLOUR background) {
     if (y >= 41) return;
     console->setPosition(x, y + 8);
     printf("   `            ");
+    if (y >= 40) return;
+    console->setPosition(x, y + 9);
+    printf("                ");
 }
 
 void printOrange(Console *console, int x, int y, COLOUR background) {
@@ -169,6 +178,9 @@ void printOrange(Console *console, int x, int y, COLOUR background) {
     if (y >= 41) return;
     console->setPosition(x, y + 8);
     printf("    `YbbbdP'    ");
+    if (y >= 40) return;
+    console->setPosition(x, y + 9);
+    printf("                ");
 }
 
 void printStar(Console *console, int x, int y, COLOUR background) {
@@ -179,25 +191,28 @@ void printStar(Console *console, int x, int y, COLOUR background) {
     printf("       n        ");
     if (y >= 47) return;
     console->setPosition(x, y + 2);
-    printf("      /88\\     ");
+    printf("      /88\\      ");
     if (y >= 46) return;
     console->setPosition(x, y + 3);
-    printf("  ___/8888\\___");
+    printf("  ___/8888\\___  ");
     if (y >= 45) return;
     console->setPosition(x, y + 4);
-    printf("  `888888888888` ");
+    printf("  `888888888888`");
     if (y >= 44) return;
     console->setPosition(x, y + 5);
     printf("   \\888888888/  ");
     if (y >= 43) return;
     console->setPosition(x, y + 6);
-    printf("   /888/^8888\\   ");
+    printf("   /888/^8888\\  ");
     if (y >= 42) return;
     console->setPosition(x, y + 7);
-    printf("  /+./    \\.+\\   ");
+    printf("  /+./    \\.+\\  ");
     if (y >= 41) return;
     console->setPosition(x, y + 8);
-    printf("  :`        `;    ");
+    printf("  :`        `;  ");
+    if (y >= 40) return;
+    console->setPosition(x, y + 9);
+    printf("                ");
 }
 
 void printSeven(Console *console, int x, int y, COLOUR background) {
@@ -227,6 +242,9 @@ void printSeven(Console *console, int x, int y, COLOUR background) {
     if (y >= 41) return;
     console->setPosition(x, y + 8);
     printf("      ###`      ");
+    if (y >= 40) return;
+    console->setPosition(x, y + 9);
+    printf("                ");
 }
 
 void printSymbol(Console* console, SYMBOL symbol, int x, int y, COLOUR background) {
