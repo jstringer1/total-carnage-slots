@@ -11,8 +11,8 @@ UserInput ButtonPanel::acceptUserInput() {
 	__try {
 		while (true) {
 			COORD position = console->waitForMouseClick();
-			if (position.X >= 10 && position.X <= 18 && position.Y >= 50 && position.Y <= 52) return EXIT;
-			else if (position.X >= 100 && position.X <= 108 && position.Y >= 50 && position.Y <= 52) return SPIN;
+			if (position.X >= 2 && position.X <= 10 && position.Y >= 52 && position.Y <= 54) return EXIT;
+			else if (position.X >= 90 && position.X <= 98 && position.Y >= 52 && position.Y <= 54) return SPIN;
 		}
 	} __finally {
 
@@ -21,18 +21,18 @@ UserInput ButtonPanel::acceptUserInput() {
 }
 
 void drawButtons(Console* console) {
-	console->setPosition(100, 50);
+	console->setPosition(90, 52);
 	printf("        ");
-	console->setPosition(100, 51);
+	console->setPosition(90, 53);
 	printf("  SPIN  ");
-	console->setPosition(100, 52);
+	console->setPosition(90, 54);
 	printf("        ");
 
-	console->setPosition(10, 50);
+	console->setPosition(2, 52);
 	printf("        ");
-	console->setPosition(10, 51);
+	console->setPosition(2, 53);
 	printf("  EXIT  ");
-	console->setPosition(10, 52);
+	console->setPosition(2, 54);
 	printf("        ");
 }
 

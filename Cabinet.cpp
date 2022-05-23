@@ -9,21 +9,34 @@ Cabinet::Cabinet(Console* console, Wallet* wallet, SoundController *sound) {
 	console->setColourAndPosition(COLOUR_BLACK, COLOUR_GREY,0,0);
 	for (int i = 0; i < 120; i++) printf("                                                                                                                                                                                                                                                                       \n");
 	console->setColourAndPosition(COLOUR_BLACK, COLOUR_BLACK, 0, 0);
-	for (int i = 0; i < 55; i++) printf("                                                                                                                        \n");
+	for (int i = 0; i < 57; i++) printf("                                                                                                     \n");
 	onCreditChangeEvent();
 	wallet->registerListener(this);
 
-	printTitle(console, 24, 1);
+	printTitle(console, 15, 0);
 
-	printSymbol(console, CHERRY, 20, 40, COLOUR_BLACK);
-	printSymbol(console, CHERRY, 50, 40, COLOUR_BLACK);
-	printSymbol(console, CHERRY, 80, 40, COLOUR_BLACK);
-	printSymbol(console, CHERRY, 20, 30, COLOUR_BLACK);
-	printSymbol(console, CHERRY, 50, 30, COLOUR_BLACK);
-	printSymbol(console, CHERRY, 80, 30, COLOUR_BLACK);
-	printSymbol(console, CHERRY, 20, 20, COLOUR_BLACK);
-	printSymbol(console, CHERRY, 50, 20, COLOUR_BLACK);
-	printSymbol(console, CHERRY, 80, 20, COLOUR_BLACK);
+	console->setColourAndPosition(COLOUR_GREEN, COLOUR_BLACK, 0, 19);
+	printf("           ,adPP88888888888888YYba,   ,adPP88888888888888YYba,   ,adPP88888888888888YYba,");
+	console->setPosition(0, 20);
+	printf("           a8\"                  \"8a   a8\"                  \"8a   a8\"                  \"8a");
+	for (int y = 21; y < 49; y++) {
+		console->setPosition(0, y);
+		printf("           88                    88   88                    88   88                    88");
+	}
+	console->setPosition(0, 49);
+	printf("           \"8a,                ,a8\"   \"8a,                ,a8\"   \"8a,                ,a8\"");
+	console->setPosition(0, 50);
+	printf("           `\"Yb8888888888888888dP\"'    \"Yb8888888888888888dP\"'    \"Yb8888888888888888dP\"'");
+
+	printSymbol(console, CHERRY, 15, 40, COLOUR_BLACK);
+    printSymbol(console, CHERRY, 41, 40, COLOUR_BLACK);
+    printSymbol(console, CHERRY, 69, 40, COLOUR_BLACK);
+    printSymbol(console, CHERRY, 15, 30, COLOUR_BLACK);
+    printSymbol(console, CHERRY, 41, 30, COLOUR_BLACK);
+    printSymbol(console, CHERRY, 69, 30, COLOUR_BLACK);
+    printSymbol(console, CHERRY, 15, 20, COLOUR_BLACK);
+    printSymbol(console, CHERRY, 41, 20, COLOUR_BLACK);
+    printSymbol(console, CHERRY, 69, 20, COLOUR_BLACK);
 }
 
 Cabinet::~Cabinet() {
@@ -40,9 +53,9 @@ ButtonPanel* Cabinet::getButtons() {
 
 void Cabinet::onCreditChangeEvent() {
 	double balance = wallet->getBalance() / 100.0;
-	console->setColourAndPosition(COLOUR_PURPLE, COLOUR_WHITE, 50, 51);
+	console->setColourAndPosition(COLOUR_PURPLE, COLOUR_WHITE, 41, 53);
 	printf("                  ");
-	console->setPosition(50, 51);
+	console->setPosition(41, 53);
 	printf(" BALANCE: \xC2\xA3%.2f ", balance);
 }
 
@@ -69,52 +82,52 @@ void Cabinet::showSpinningReels(REEL_POSITIONS result) {
 			for (int k = 0; k < 3; k++) {
 				incrementReelCounter(k);
 			}
-			printSymbol(console, toSymbol(reel[0][1]+1), 20, 20 + reel[0][0], COLOUR_BLACK);
-			printSymbol(console, toSymbol(reel[1][1]+1), 50, 20 + reel[1][0], COLOUR_BLACK);
-			printSymbol(console, toSymbol(reel[2][1]+1), 80, 20 + reel[2][0], COLOUR_BLACK);
+			printSymbol(console, toSymbol(reel[0][1]+1), 15, 20 + reel[0][0], COLOUR_BLACK);
+			printSymbol(console, toSymbol(reel[1][1]+1), 41, 20 + reel[1][0], COLOUR_BLACK);
+			printSymbol(console, toSymbol(reel[2][1]+1), 69, 20 + reel[2][0], COLOUR_BLACK);
 
-			printSymbol(console, toSymbol(reel[0][1]), 20, 30 + reel[0][0], COLOUR_BLACK);
-			printSymbol(console, toSymbol(reel[1][1]), 50, 30 + reel[1][0], COLOUR_BLACK);
-			printSymbol(console, toSymbol(reel[2][1]), 80, 30 + reel[2][0], COLOUR_BLACK);
+			printSymbol(console, toSymbol(reel[0][1]), 15, 30 + reel[0][0], COLOUR_BLACK);
+			printSymbol(console, toSymbol(reel[1][1]), 41, 30 + reel[1][0], COLOUR_BLACK);
+			printSymbol(console, toSymbol(reel[2][1]), 69, 30 + reel[2][0], COLOUR_BLACK);
 
-			printSymbol(console, toSymbol(reel[0][1]-1), 20, 40 + reel[0][0], COLOUR_BLACK);
-			printSymbol(console, toSymbol(reel[1][1]-1), 50, 40 + reel[1][0], COLOUR_BLACK);
-			printSymbol(console, toSymbol(reel[2][1]-1), 80, 40 + reel[2][0], COLOUR_BLACK);
+			printSymbol(console, toSymbol(reel[0][1]-1), 15, 40 + reel[0][0], COLOUR_BLACK);
+			printSymbol(console, toSymbol(reel[1][1]-1), 41, 40 + reel[1][0], COLOUR_BLACK);
+			printSymbol(console, toSymbol(reel[2][1]-1), 69, 40 + reel[2][0], COLOUR_BLACK);
 			Sleep(25);
 		}
 	}
 	while (((SYMBOL)reel[0][1]) != result.reel1) {
 		for (int i = 0; i < 3; i++) incrementReelCounter(i);
-		printSymbol(console, toSymbol(reel[0][1] + 1), 20, 20 + reel[0][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[1][1] + 1), 50, 20 + reel[1][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[2][1] + 1), 80, 20 + reel[2][0], COLOUR_BLACK);
+		printSymbol(console, toSymbol(reel[0][1] + 1), 15, 20 + reel[0][0], COLOUR_BLACK);
+		printSymbol(console, toSymbol(reel[1][1] + 1), 41, 20 + reel[1][0], COLOUR_BLACK);
+		printSymbol(console, toSymbol(reel[2][1] + 1), 69, 20 + reel[2][0], COLOUR_BLACK);
 
-		printSymbol(console, toSymbol(reel[0][1]), 20, 30 + reel[0][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[1][1]), 50, 30 + reel[1][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[2][1]), 80, 30 + reel[2][0], COLOUR_BLACK);
+		printSymbol(console, toSymbol(reel[0][1]), 15, 30 + reel[0][0], COLOUR_BLACK);
+		printSymbol(console, toSymbol(reel[1][1]), 41, 30 + reel[1][0], COLOUR_BLACK);
+		printSymbol(console, toSymbol(reel[2][1]), 69, 30 + reel[2][0], COLOUR_BLACK);
 
-		printSymbol(console, toSymbol(reel[0][1] - 1), 20, 40 + reel[0][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[1][1] - 1), 50, 40 + reel[1][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[2][1] - 1), 80, 40 + reel[2][0], COLOUR_BLACK);
+		printSymbol(console, toSymbol(reel[0][1] - 1), 15, 40 + reel[0][0], COLOUR_BLACK);
+		printSymbol(console, toSymbol(reel[1][1] - 1), 41, 40 + reel[1][0], COLOUR_BLACK);
+		printSymbol(console, toSymbol(reel[2][1] - 1), 69, 40 + reel[2][0], COLOUR_BLACK);
 		Sleep(25);
 	}
 	while (((SYMBOL)reel[1][1]) != result.reel2) {
 		for (int i = 1; i < 3; i++) incrementReelCounter(i);
-		printSymbol(console, toSymbol(reel[1][1] + 1), 50, 20 + reel[1][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[2][1] + 1), 80, 20 + reel[2][0], COLOUR_BLACK);
+		printSymbol(console, toSymbol(reel[1][1] + 1), 41, 20 + reel[1][0], COLOUR_BLACK);
+		printSymbol(console, toSymbol(reel[2][1] + 1), 69, 20 + reel[2][0], COLOUR_BLACK);
 
-		printSymbol(console, toSymbol(reel[1][1]), 50, 30 + reel[1][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[2][1]), 80, 30 + reel[2][0], COLOUR_BLACK);
+		printSymbol(console, toSymbol(reel[1][1]), 41, 30 + reel[1][0], COLOUR_BLACK);
+		printSymbol(console, toSymbol(reel[2][1]), 69, 30 + reel[2][0], COLOUR_BLACK);
 
-		printSymbol(console, toSymbol(reel[1][1] - 1), 50, 40 + reel[1][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[2][1] - 1), 80, 40 + reel[2][0], COLOUR_BLACK);
+		printSymbol(console, toSymbol(reel[1][1] - 1), 41, 40 + reel[1][0], COLOUR_BLACK);
+		printSymbol(console, toSymbol(reel[2][1] - 1), 69, 40 + reel[2][0], COLOUR_BLACK);
 		Sleep(25);
 	}
 	while (((SYMBOL)reel[2][1]) != result.reel3) {
 		incrementReelCounter(2);
-		printSymbol(console, toSymbol(reel[2][1] + 1), 80, 20 + reel[2][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[2][1]), 80, 30 + reel[2][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[2][1] - 1), 80, 40 + reel[2][0], COLOUR_BLACK);
+		printSymbol(console, toSymbol(reel[2][1] + 1), 69, 20 + reel[2][0], COLOUR_BLACK);
+		printSymbol(console, toSymbol(reel[2][1]), 69, 30 + reel[2][0], COLOUR_BLACK);
+		printSymbol(console, toSymbol(reel[2][1] - 1), 69, 40 + reel[2][0], COLOUR_BLACK);
 		Sleep(25);
 	}
 
