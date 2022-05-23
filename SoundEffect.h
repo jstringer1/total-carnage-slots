@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 class SoundController {
 public:
@@ -14,6 +15,8 @@ private:
 	bool bigprizesopen = false;
 	bool iloveitopen = false;
 	bool totalcarnageopen = false;
-	void loadSoundEffect(int id, const wchar_t* name);
+	void unpackSoundEffect(int id, const wchar_t* name);
+	void openSoundEffect(const wchar_t* name);
+	std::wstring getSoundEffectPath(const wchar_t* name);
 	void closeanyopen();
 };
