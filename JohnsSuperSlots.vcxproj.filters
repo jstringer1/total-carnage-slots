@@ -24,7 +24,7 @@
     <ClCompile Include="Console.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RNG.cpp">
+    <ClCompile Include="OutcomeGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Driver.cpp">
@@ -44,7 +44,7 @@
     <ClInclude Include="Console.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RNG.h">
+    <ClInclude Include="OutcomeGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ButtonPanel.h">

@@ -1,5 +1,5 @@
 #pragma once
-#include "RNG.h"
+#include "OutcomeGenerator.h"
 #include "Console.h"
 
 void printTitle(Console* console, int x, int y);

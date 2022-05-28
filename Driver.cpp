@@ -1,4 +1,4 @@
-#include "RNG.h"
+#include "OutcomeGenerator.h"
 #include "Console.h"
 #include "ButtonPanel.h"
 #include "Wallet.h"
@@ -6,7 +6,6 @@
 #include <iostream>
 #include <fstream>
 #include "SoundEffect.h"
-
 
 std::string getSymbolName(SYMBOL symbol) {
 	if (symbol == CHERRY) return std::string("CHERRY");
@@ -17,14 +16,7 @@ std::string getSymbolName(SYMBOL symbol) {
 	return std::string("SEVEN");
 }
 
-unsigned int getPrize(REEL_POSITIONS reels) {
-	if (reels.reel1 == BELL && reels.reel2 == BELL && reels.reel3 == BELL) return 500;
-	else if (reels.reel1 == reels.reel2 && reels.reel1 == reels.reel3) return 100;
-	else if (reels.reel1 == reels.reel2) return 50;
-	return 0;
-}
-
-void runRtpTest(RNG rng, char* outfile) {
+void runRtpTest(OutcomeGenerator rng, char* outfile) {
 	std::ofstream output;
 	output.open(outfile, std::ios_base::app);
 	output << "REEL1, REEL2, REEL3, STAKE, PRIZE, TOTAL_STAKE, TOTAL_PRIZE, RUNNING_RTP\n";
@@ -35,15 +27,13 @@ void runRtpTest(RNG rng, char* outfile) {
 	double rtp;
 	unsigned int gamecycles = 1000000;
 	for (int i = 0; i < gamecycles; i++) {
-		REEL_POSITIONS reels = rng.generateReelPositions();
-		unsigned int stake = 20;
-		unsigned int prize = getPrize(reels);
-		totstake += stake;
-		totprize += prize;
+		OUTCOME outcome = rng.generateOutcome();
+		totstake += outcome.stake;
+		totprize += outcome.prize;
 		rtp = totprize / totstake;
 		sprintf_s(buffer, 1024, "%s, %s, %s, %u, %u, %.6f, %.6f, %.6f\n",
-			getSymbolName(reels.reel1).c_str(), getSymbolName(reels.reel2).c_str(), getSymbolName(reels.reel3).c_str(),
-			stake, prize, totstake, totprize, rtp);
+			getSymbolName(outcome.reel1).c_str(), getSymbolName(outcome.reel2).c_str(), getSymbolName(outcome.reel3).c_str(),
+			outcome.stake, outcome.prize, totstake, totprize, rtp);
 		output << buffer;
 	}
 	output.close();
@@ -51,7 +41,7 @@ void runRtpTest(RNG rng, char* outfile) {
 }
 
 void main(int argc, char* argv[]) {
-	RNG rng = RNG();
+	OutcomeGenerator rng = OutcomeGenerator();
 	if (argc > 1) {
 		runRtpTest(rng, argv[1]);
 	} else {
@@ -67,10 +57,9 @@ void main(int argc, char* argv[]) {
 			} else if (input == SPIN) {
 				sound.playGoodLuck();
 				wallet.takeCredit(20);
-				REEL_POSITIONS result = rng.generateReelPositions();
+				OUTCOME result = rng.generateOutcome();
 				cabinet.showSpinningReels(result);
-				unsigned int prize = getPrize(result);
-				wallet.giveCredit(prize);
+				wallet.giveCredit(result.prize);
 			}
 		}
 	}

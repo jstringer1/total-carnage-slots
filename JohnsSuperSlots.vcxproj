@@ -145,7 +145,7 @@
     <ClCompile Include="ButtonPanel.cpp" />
     <ClCompile Include="SoundEffect.cpp" />
     <ClCompile Include="Symbols.cpp" />
-    <ClCompile Include="RNG.cpp" />
+    <ClCompile Include="OutcomeGenerator.cpp" />
     <ClCompile Include="Wallet.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -153,7 +153,7 @@
     <ClInclude Include="Cabinet.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="RNG.h" />
+    <ClInclude Include="OutcomeGenerator.h" />
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="Symbols.h" />
     <ClInclude Include="Wallet.h" />

@@ -163,7 +163,7 @@ SYMBOL toSymbol(int index) {
 	return (SYMBOL)index;
 }
 
-void Cabinet::showSpinningReels(REEL_POSITIONS result) {
+void Cabinet::showSpinningReels(OUTCOME result) {
 	for (int i = 0; i < 6; i++) {
 		for (int j = 0; j < 9; j++) {
 			for (int k = 0; k < 3; k++) {
