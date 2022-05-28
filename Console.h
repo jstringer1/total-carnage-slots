@@ -25,6 +25,7 @@ enum COLOUR {
 class Console {
 public:
     Console();
+    ~Console();
     HANDLE stdIn();
     HANDLE stdOut();
     void setColour(COLOUR foreground, COLOUR background);

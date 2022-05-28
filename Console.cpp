@@ -8,6 +8,18 @@ Console::Console() {
 	SetConsoleOutputCP(CP_UTF8);
 	HWND hWnd = GetConsoleWindow();
 	ShowWindow(hWnd, SW_SHOWMAXIMIZED);
+	CONSOLE_CURSOR_INFO     cursorInfo;
+	GetConsoleCursorInfo(out, &cursorInfo);
+	cursorInfo.bVisible = false;
+	SetConsoleCursorInfo(out, &cursorInfo);
+}
+
+Console::~Console() {
+	CONSOLE_CURSOR_INFO     cursorInfo;
+	GetConsoleCursorInfo(out, &cursorInfo);
+	cursorInfo.bVisible = true;
+	SetConsoleCursorInfo(out, &cursorInfo);
+	setColourAndPosition(COLOUR_BRIGHT_WHITE, COLOUR_BLACK, 0, 100);
 }
 
 HANDLE Console::stdIn() {
