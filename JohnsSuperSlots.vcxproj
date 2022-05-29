@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BalancePanel.cpp" />
     <ClCompile Include="Cabinet.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="Driver.cpp" />
@@ -149,6 +150,7 @@
     <ClCompile Include="Wallet.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BalancePanel.h" />
     <ClInclude Include="ButtonPanel.h" />
     <ClInclude Include="Cabinet.h" />
     <ClInclude Include="Console.h" />

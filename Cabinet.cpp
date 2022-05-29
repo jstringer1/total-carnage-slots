@@ -6,7 +6,8 @@ Cabinet::Cabinet(Console* console, Wallet* wallet, SoundController *sound) {
 	Cabinet::console = console;
 	Cabinet::wallet = wallet;
 	Cabinet::sound = sound;
-	Cabinet::buttons =  new ButtonPanel(console);
+	Cabinet::buttons = new ButtonPanel(console);
+	Cabinet::balance = new BalancePanel(console, COLOUR_PURPLE, COLOUR_BLACK, 28, 52);
 	console->setColourAndPosition(COLOUR_BLACK, COLOUR_GREY,0,0);
 	for (int i = 0; i < 120; i++) printf("                                                                                                                                                                                                                                                                       \n");
 	console->setColourAndPosition(COLOUR_BLACK, COLOUR_BLACK, 0, 0);
@@ -30,6 +31,7 @@ Cabinet::Cabinet(Console* console, Wallet* wallet, SoundController *sound) {
 
 Cabinet::~Cabinet() {
 	delete buttons;
+	delete balance;
 	wallet->unregisterListener(this);
 	console = NULL;
 	wallet = NULL;
@@ -43,96 +45,13 @@ ButtonPanel* Cabinet::getButtons() {
 void Cabinet::onCreditChangeEvent() {
 	double balance = wallet->getBalance() / 100.0;
 	char balancestring[64];
-	sprintf_s(balancestring, 64, "%.2f", balance);
-	
-	std::string line1 = " dp\"Yb";
-	std::string line2 ="8888  ";
-	std::string line3 =" 88   ";
-	std::string line4 ="888888";
-	
-	for (int i = 0; i < 64; i++) {
-		if (balancestring[i] == '0') {
-			line1.append("  dP\"Yb ");
-			line2.append(" dP   Yb");
-			line3.append(" Yb   dP");
-			line4.append("  YbodP ");
-		}
-		else if (balancestring[i] == '1') {
-			line1.append("   .d");
-			line2.append(" .d88");
-			line3.append("   88");
-			line4.append("   88");
-		}
-		else if (balancestring[i] == '2') {
-			line1.append(" oP\"Yb.");
-			line2.append(" \"' dP'");
-			line3.append("   dP' ");
-			line4.append(" .d8888");
-		}
-		else if (balancestring[i] == '3') {
-			line1.append(" 88888");
-			line2.append("   .dP");
-			line3.append(" o `Yb");
-			line4.append(" YbodP");
-		}
-		else if (balancestring[i] == '4') {
-			line1.append("   dP88 ");
-			line2.append("  dP 88 ");
-			line3.append(" d888888");
-			line4.append("     88");
-		}
-		else if (balancestring[i] == '5') {
-			line1.append(" 888888");
-			line2.append(" 88oo.\"");
-			line3.append("    `8b");
-			line4.append(" 8888P'");
-		}
-		else if (balancestring[i] == '6') {
-			line1.append("   dP'  ");
-			line2.append(" .d8'   ");
-			line3.append(" 8P\"\"\"Yb");
-			line4.append(" `YboodP");
-		}
-		else if (balancestring[i] == '7') {
-			line1.append(" 888888P");
-			line2.append("     dP ");
-			line3.append("    dP  ");
-			line4.append("   dP   ");
-		}
-		else if (balancestring[i] == '8') {
-			line1.append(" .dP\"o.");
-			line2.append(" `8b.d'");
-			line3.append(" d'`Y8b");
-			line4.append(" `bodP'");
-		}
-		else if (balancestring[i] == '9') {
-			line1.append(" dP\"\"Yb");
-			line2.append(" Ybood8");
-			line3.append("   .8P'");
-			line4.append("  .dP' ");
-		}
-		else if (balancestring[i] == '.') {
-			line1.append("    ");
-			line2.append("    ");
-			line3.append(" .o.");
-			line4.append(" `\"'");
-		}
-		else break;
-	}
+	sprintf_s(balancestring, 64, "£%.2f", balance);
 
 	for (int y = 52; y < 56; y++) {
 		console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, 28, y);
 		printf("                                                            ");
 	}
-
-	console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, 28, 52);
-	printf(line1.c_str());
-	console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, 28, 53);
-	printf(line2.c_str());
-	console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, 28, 54);
-	printf(line3.c_str());
-	console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, 28, 55);
-	printf(line4.c_str());
+	Cabinet::balance->printBalance(std::string(balancestring));
 }
 
 int reel[3][2] = { {0,0}, {0,0}, {0,0} };
