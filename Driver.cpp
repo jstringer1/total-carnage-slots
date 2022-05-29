@@ -25,7 +25,7 @@ void runRtpTest(OutcomeGenerator rng, char* outfile) {
 	double totstake = 0;
 	double totprize = 0;
 	double rtp;
-	unsigned int gamecycles = 1000000;
+	unsigned int gamecycles = 100000;
 	for (int i = 0; i < gamecycles; i++) {
 		OUTCOME outcome = rng.generateOutcome();
 		totstake += outcome.stake;
