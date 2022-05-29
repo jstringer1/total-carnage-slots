@@ -6,3 +6,6 @@ IDR_ILOVEIT		RCDATA 	"sfx\\BigMoneyBigPrizesILoveIt.mp3"
 IDR_BIGPRIZES	RCDATA 	"sfx\\BigPrizes.mp3"
 IDR_GOODLUCK	RCDATA 	"sfx\\GoodLuckYoullNeedIt.mp3"
 IDR_CARNAGE		RCDATA 	"sfx\\TotalCarnage.mp3"
+
+IDR_TITLE		RCDATA	"gfx\\TITLE.txt"
+IDR_REELS		RCDATA	"gfx\\REELS.txt"

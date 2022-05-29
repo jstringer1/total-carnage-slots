@@ -1,5 +1,6 @@
 #include "Cabinet.h"
 #include "Symbols.h"
+#include "resource.h"
 
 Cabinet::Cabinet(Console* console, Wallet* wallet, SoundController *sound) {
 	Cabinet::console = console;
@@ -13,20 +14,8 @@ Cabinet::Cabinet(Console* console, Wallet* wallet, SoundController *sound) {
 	onCreditChangeEvent();
 	wallet->registerListener(this);
 
-	printTitle(console, 15, 0);
-
-	console->setColourAndPosition(COLOUR_GREEN, COLOUR_BLACK, 0, 19);
-	printf("           ,adPP88888888888888YYba,   ,adPP88888888888888YYba,   ,adPP88888888888888YYba,");
-	console->setPosition(0, 20);
-	printf("           a8\"                  \"8a   a8\"                  \"8a   a8\"                  \"8a");
-	for (int y = 21; y < 49; y++) {
-		console->setPosition(0, y);
-		printf("           88                    88   88                    88   88                    88");
-	}
-	console->setPosition(0, 49);
-	printf("           \"8a,                ,a8\"   \"8a,                ,a8\"   \"8a,                ,a8\"");
-	console->setPosition(0, 50);
-	printf("           `\"Yb8888888888888888dP\"'    \"Yb8888888888888888dP\"'    \"Yb8888888888888888dP\"'");
+	console->printResource(IDR_TITLE, COLOUR_PURPLE, COLOUR_BLACK, 0);
+	console->printResource(IDR_REELS, COLOUR_GREEN, COLOUR_BLACK, 19);
 
 	printSymbol(console, CHERRY, 15, 40, COLOUR_BLACK);
     printSymbol(console, CHERRY, 42, 40, COLOUR_BLACK);

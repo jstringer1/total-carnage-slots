@@ -30,6 +30,13 @@ HANDLE Console::stdOut() {
 	return out;
 }
 
+void Console::printResource(int id, COLOUR foreground, COLOUR background, int y) {
+	setColourAndPosition(foreground, background, 0, y);
+	HRSRC res = FindResource(NULL, MAKEINTRESOURCE(id), RT_RCDATA);
+	char* data = (char*)LockResource(LoadResource(NULL, res));
+	printf(data);
+}
+
 void Console::setColourAndPosition(COLOUR foreground, COLOUR background, int x, int y) {
 	setColour(foreground, background);
 	setPosition(x, y);

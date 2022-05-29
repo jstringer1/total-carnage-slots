@@ -28,6 +28,7 @@ public:
     ~Console();
     HANDLE stdIn();
     HANDLE stdOut();
+    void printResource(int id, COLOUR foreground, COLOUR background, int y);
     void setColour(COLOUR foreground, COLOUR background);
     void setPosition(int x, int y);
     void setColourAndPosition(COLOUR foreground, COLOUR background, int x, int y);
