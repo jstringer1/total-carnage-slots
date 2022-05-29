@@ -6,7 +6,10 @@
 struct FONT_DATA {
 	int offset;
 	int width;
-	FONT_DATA() {}
+	FONT_DATA() {
+		offset = 0;
+		width = 0;
+	}
 	FONT_DATA(int o, int w) {
 		offset = o;
 		width = w;

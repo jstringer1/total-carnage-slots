@@ -1,13 +1,13 @@
-#include "Cabinet.h"
+#include "GUI.h"
 #include "Symbols.h"
 #include "resource.h"
 
-Cabinet::Cabinet(Console* console, Wallet* wallet, SoundController *sound) {
-	Cabinet::console = console;
-	Cabinet::wallet = wallet;
-	Cabinet::sound = sound;
-	Cabinet::buttons = new ButtonPanel(console);
-	Cabinet::balance = new BalancePanel(console, COLOUR_PURPLE, COLOUR_BLACK, 28, 52);
+GUI::GUI(Console* console, Wallet* wallet, SoundController *sound) {
+	GUI::console = console;
+	GUI::wallet = wallet;
+	GUI::sound = sound;
+	GUI::buttons = new ButtonPanel(console);
+	GUI::balance = new BalancePanel(console, COLOUR_PURPLE, COLOUR_BLACK, 28, 52);
 	console->setColourAndPosition(COLOUR_BLACK, COLOUR_GREY,0,0);
 	for (int i = 0; i < 120; i++) printf("                                                                                                                                                                                                                                                                       \n");
 	console->setColourAndPosition(COLOUR_BLACK, COLOUR_BLACK, 0, 0);
@@ -29,7 +29,7 @@ Cabinet::Cabinet(Console* console, Wallet* wallet, SoundController *sound) {
     printSymbol(console, CHERRY, 69, 20, COLOUR_BLACK);
 }
 
-Cabinet::~Cabinet() {
+GUI::~GUI() {
 	delete buttons;
 	delete balance;
 	wallet->unregisterListener(this);
@@ -38,11 +38,11 @@ Cabinet::~Cabinet() {
 	buttons = NULL;
 }
 
-ButtonPanel* Cabinet::getButtons() {
+ButtonPanel* GUI::getButtons() {
 	return buttons;
 }
 
-void Cabinet::onCreditChangeEvent() {
+void GUI::onCreditChangeEvent() {
 	double balance = wallet->getBalance() / 100.0;
 	char balancestring[64];
 	sprintf_s(balancestring, 64, "£%.2f", balance);
@@ -51,7 +51,7 @@ void Cabinet::onCreditChangeEvent() {
 		console->setColourAndPosition(COLOUR_PURPLE, COLOUR_BLACK, 28, y);
 		printf("                                                            ");
 	}
-	Cabinet::balance->printBalance(std::string(balancestring));
+	GUI::balance->printBalance(std::string(balancestring));
 }
 
 int reel[3][2] = { {0,0}, {0,0}, {0,0} };
@@ -71,7 +71,7 @@ SYMBOL toSymbol(int index) {
 	return (SYMBOL)index;
 }
 
-void Cabinet::showSpinningReels(OUTCOME result) {
+void GUI::showOutcome(OUTCOME result) {
 	for (int i = 0; i < 6; i++) {
 		for (int j = 0; j < 9; j++) {
 			for (int k = 0; k < 3; k++) {

@@ -6,12 +6,12 @@
 #include "OutcomeGenerator.h"
 #include "SoundEffect.h"
 
-class Cabinet : CreditChangeListener {
+class GUI : CreditChangeListener {
 public:
-	Cabinet(Console* console, Wallet* wallet, SoundController* sound);
-	~Cabinet();
+	GUI(Console* console, Wallet* wallet, SoundController* sound);
+	~GUI();
 	ButtonPanel* getButtons();
-	void showSpinningReels(OUTCOME result);
+	void showOutcome(OUTCOME result);
 	virtual void onCreditChangeEvent() override;
 private:
 	Console* console;
