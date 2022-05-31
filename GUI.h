@@ -5,6 +5,7 @@
 #include "Wallet.h"
 #include "OutcomeGenerator.h"
 #include "SoundEffect.h"
+#include "ReelPanel.h"
 
 class GUI : CreditChangeListener {
 public:
@@ -19,4 +20,7 @@ private:
 	SoundController* sound;
 	ButtonPanel* buttons;
 	BalancePanel* balance;
+	ReelPanel* reel1;
+	ReelPanel* reel2;
+	ReelPanel* reel3;
 };

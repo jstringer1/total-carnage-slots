@@ -17,25 +17,28 @@ GUI::GUI(Console* console, Wallet* wallet, SoundController *sound) {
 
 	console->printResource(IDR_TITLE, COLOUR_PURPLE, COLOUR_BLACK, 0);
 	console->printResource(IDR_REELS, COLOUR_GREEN, COLOUR_BLACK, 19);
+	console->printResource(IDR_WINLINE, COLOUR_LIGHT_RED, COLOUR_BLACK, 34);
 
-	printSymbol(console, CHERRY, 15, 40, COLOUR_BLACK);
-    printSymbol(console, CHERRY, 42, 40, COLOUR_BLACK);
-    printSymbol(console, CHERRY, 69, 40, COLOUR_BLACK);
-    printSymbol(console, CHERRY, 15, 30, COLOUR_BLACK);
-    printSymbol(console, CHERRY, 42, 30, COLOUR_BLACK);
-    printSymbol(console, CHERRY, 69, 30, COLOUR_BLACK);
-    printSymbol(console, CHERRY, 15, 20, COLOUR_BLACK);
-    printSymbol(console, CHERRY, 42, 20, COLOUR_BLACK);
-    printSymbol(console, CHERRY, 69, 20, COLOUR_BLACK);
+	GUI::reel1 = new ReelPanel(console, 13, 3);
+	GUI::reel2 = new ReelPanel(console, 40, 0);
+	GUI::reel3 = new ReelPanel(console, 67, 5);
+
+	reel1->drawCurrentFrame(COLOUR_BLACK);
+	reel2->drawCurrentFrame(COLOUR_BLACK);
+	reel3->drawCurrentFrame(COLOUR_BLACK);
 }
 
 GUI::~GUI() {
 	delete buttons;
 	delete balance;
+	delete reel1;
+	delete reel2;
+	delete reel3;
 	wallet->unregisterListener(this);
 	console = NULL;
 	wallet = NULL;
 	buttons = NULL;
+	reel1 = reel2 = reel3 = NULL;
 }
 
 ButtonPanel* GUI::getButtons() {
@@ -54,104 +57,37 @@ void GUI::onCreditChangeEvent() {
 	GUI::balance->printBalance(std::string(balancestring));
 }
 
-int reel[3][2] = { {0,0}, {0,0}, {0,0} };
-
-void incrementReelCounter(int index) {
-	reel[index][0] += 1;
-	if (reel[index][0] == 9) {
-		reel[index][0] = 0;
-		reel[index][1] += 1;
-		if (reel[index][1] == 6) reel[index][1] = 0;
-	}
-}
-
-SYMBOL toSymbol(int index) {
-	if (index == -1) return (SYMBOL)5;
-	if (index == 6) return (SYMBOL)0;
-	return (SYMBOL)index;
-}
-
 void GUI::showOutcome(OUTCOME result) {
-	for (int i = 0; i < 6; i++) {
-		for (int j = 0; j < 9; j++) {
-			for (int k = 0; k < 3; k++) {
-				incrementReelCounter(k);
-			}
-			printSymbol(console, toSymbol(reel[0][1]+1), 15, 20 + reel[0][0], COLOUR_BLACK);
-			printSymbol(console, toSymbol(reel[1][1]+1), 42, 20 + reel[1][0], COLOUR_BLACK);
-			printSymbol(console, toSymbol(reel[2][1]+1), 69, 20 + reel[2][0], COLOUR_BLACK);
+	int frame = 0;
+	bool stopped[3] = {false, false, false};
+	int frameDuration = 30;
+	while (!stopped[2]) {
+		if (!stopped[0]) stopped[0] = reel1->incrementFrame((frame++ > 50), result.reel1);
+		if (!stopped[1]) stopped[1] = reel2->incrementFrame(stopped[0], result.reel2);
+		if (!stopped[2]) stopped[2] = reel3->incrementFrame(stopped[1], result.reel3);
+		reel1->drawCurrentFrame(COLOUR_BLACK);
+		reel2->drawCurrentFrame(COLOUR_BLACK);
+		reel3->drawCurrentFrame(COLOUR_BLACK);
+		Sleep(frameDuration);
+	}
 
-			printSymbol(console, toSymbol(reel[0][1]), 15, 30 + reel[0][0], COLOUR_BLACK);
-			printSymbol(console, toSymbol(reel[1][1]), 42, 30 + reel[1][0], COLOUR_BLACK);
-			printSymbol(console, toSymbol(reel[2][1]), 69, 30 + reel[2][0], COLOUR_BLACK);
+	if (result.type == THREE_BELLS) sound->playILoveIt();
+	else if (result.type == THREE_SYMBOLS) sound->playBigPrizes();
+	else if (result.type == TWO_SYMBOLS) sound->playBigMoney();
+	else sound->playTotalCarnage();
 
-			printSymbol(console, toSymbol(reel[0][1]-1), 15, 40 + reel[0][0], COLOUR_BLACK);
-			printSymbol(console, toSymbol(reel[1][1]-1), 42, 40 + reel[1][0], COLOUR_BLACK);
-			printSymbol(console, toSymbol(reel[2][1]-1), 69, 40 + reel[2][0], COLOUR_BLACK);
-			Sleep(25);
+	for (int i = 0; i < 5; i++) {
+		if (result.reel1 == result.reel2) {
+			reel1->drawCurrentFrame(COLOUR_WHITE);
+			reel2->drawCurrentFrame(COLOUR_WHITE);
 		}
-	}
-	while (((SYMBOL)reel[0][1]) != result.reel1) {
-		for (int i = 0; i < 3; i++) incrementReelCounter(i);
-		printSymbol(console, toSymbol(reel[0][1] + 1), 15, 20 + reel[0][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[1][1] + 1), 42, 20 + reel[1][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[2][1] + 1), 69, 20 + reel[2][0], COLOUR_BLACK);
-
-		printSymbol(console, toSymbol(reel[0][1]), 15, 30 + reel[0][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[1][1]), 42, 30 + reel[1][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[2][1]), 69, 30 + reel[2][0], COLOUR_BLACK);
-
-		printSymbol(console, toSymbol(reel[0][1] - 1), 15, 40 + reel[0][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[1][1] - 1), 42, 40 + reel[1][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[2][1] - 1), 69, 40 + reel[2][0], COLOUR_BLACK);
-		Sleep(25);
-	}
-	while (((SYMBOL)reel[1][1]) != result.reel2) {
-		for (int i = 1; i < 3; i++) incrementReelCounter(i);
-		printSymbol(console, toSymbol(reel[1][1] + 1), 42, 20 + reel[1][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[2][1] + 1), 69, 20 + reel[2][0], COLOUR_BLACK);
-
-		printSymbol(console, toSymbol(reel[1][1]), 42, 30 + reel[1][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[2][1]), 69, 30 + reel[2][0], COLOUR_BLACK);
-
-		printSymbol(console, toSymbol(reel[1][1] - 1), 42, 40 + reel[1][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[2][1] - 1), 69, 40 + reel[2][0], COLOUR_BLACK);
-		Sleep(25);
-	}
-	while (((SYMBOL)reel[2][1]) != result.reel3) {
-		incrementReelCounter(2);
-		printSymbol(console, toSymbol(reel[2][1] + 1), 69, 20 + reel[2][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[2][1]), 69, 30 + reel[2][0], COLOUR_BLACK);
-		printSymbol(console, toSymbol(reel[2][1] - 1), 69, 40 + reel[2][0], COLOUR_BLACK);
-		Sleep(25);
-	}
-
-	if (result.reel1 == result.reel2 && result.reel2 == result.reel3) {
-		if (result.reel1 == BELL) sound->playILoveIt();
-		else sound->playBigPrizes();
-		for (int i = 0; i < 5; i++) {
-			printSymbol(console, result.reel1, 15, 30, COLOUR_WHITE);
-			printSymbol(console, result.reel2, 42, 30, COLOUR_WHITE);
-			printSymbol(console, result.reel3, 69, 30, COLOUR_WHITE);
-			Sleep(25);
-			printSymbol(console, result.reel1, 15, 30, COLOUR_BLACK);
-			printSymbol(console, result.reel2, 42, 30, COLOUR_BLACK);
-			printSymbol(console, result.reel3, 69, 30, COLOUR_BLACK);
-			Sleep(25);
-		}
-	} else if (result.reel1 == result.reel2) {
-		sound->playBigMoney();
-		for (int i = 0; i < 5; i++) {
-			printSymbol(console, result.reel1, 15, 30, COLOUR_WHITE);
-			printSymbol(console, result.reel2, 42, 30, COLOUR_WHITE);
-			Sleep(150);
-			printSymbol(console, result.reel1, 15, 30, COLOUR_BLACK);
-			printSymbol(console, result.reel2, 42, 30, COLOUR_BLACK);
-			Sleep(150);
-		}
-	}
-	else {
-		sound->playTotalCarnage();
-		Sleep(1000);
+		if (result.reel1 == result.reel3) reel3->drawCurrentFrame(COLOUR_WHITE);
+		if (result.reel1 == result.reel2) console->printResource(IDR_WINLINE, COLOUR_AQUA, COLOUR_BLACK, 34);
+		Sleep(frameDuration*3);
+		if (result.reel1 == result.reel2) console->printResource(IDR_WINLINE, COLOUR_LIGHT_RED, COLOUR_BLACK, 34);
+		reel1->drawCurrentFrame(COLOUR_BLACK);
+		reel2->drawCurrentFrame(COLOUR_BLACK);
+		reel3->drawCurrentFrame(COLOUR_BLACK);
+		Sleep(frameDuration*3);
 	}
 }

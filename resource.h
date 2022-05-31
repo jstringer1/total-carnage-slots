@@ -8,3 +8,5 @@
 #define IDR_TITLE		107
 #define IDR_REELS		108
 #define IDR_BALANCE		109
+#define IDR_SYMBOLS		110
+#define IDR_WINLINE		111
