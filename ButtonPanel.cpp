@@ -1,22 +1,34 @@
 #include "ButtonPanel.h"
 #include <Windows.h>
+#include <mutex>
 
 ButtonPanel::ButtonPanel(Console* console) {
 	ButtonPanel::console = console;
 	disable();
+	console->registerListener(this);
+}
+
+ButtonPanel::~ButtonPanel() {
+	console->unregisterListener(this);
 }
 
 UserInput ButtonPanel::acceptUserInput() {
 	enable();
-	__try {
-		while (true) {
-			COORD position = console->waitForMouseClick();
-			if (position.X >= 2 && position.X <= 10 && position.Y >= 52 && position.Y <= 54) return EXIT;
-			else if (position.X >= 90 && position.X <= 98 && position.Y >= 52 && position.Y <= 54) return SPIN;
-		}
-	} __finally {
+	std::mutex mtx;
+	std::unique_lock<std::mutex> lck(mtx);
+	sync.wait(lck);
+	disable();
+	return input;
+}
 
-		disable();
+void ButtonPanel::onMouseClick(COORD pos) {
+	if (pos.X >= 2 && pos.X <= 10 && pos.Y >= 52 && pos.Y <= 54) {
+		input = EXIT;
+		sync.notify_all();
+	}
+	else if (pos.X >= 90 && pos.X <= 98 && pos.Y >= 52 && pos.Y <= 54) {
+		input = SPIN;
+		sync.notify_all();
 	}
 }
 

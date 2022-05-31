@@ -12,14 +12,18 @@ Console::Console() {
 	GetConsoleCursorInfo(out, &cursorInfo);
 	cursorInfo.bVisible = false;
 	SetConsoleCursorInfo(out, &cursorInfo);
+	running = true;
+	userInputThread = std::thread(&Console::processConsoleInput, this);
 }
 
 Console::~Console() {
+	running = false;
 	CONSOLE_CURSOR_INFO     cursorInfo;
 	GetConsoleCursorInfo(out, &cursorInfo);
 	cursorInfo.bVisible = true;
 	SetConsoleCursorInfo(out, &cursorInfo);
 	setColourAndPosition(COLOUR_BRIGHT_WHITE, COLOUR_BLACK, 0, 100);
+	userInputThread.join();
 }
 
 HANDLE Console::stdIn() {
@@ -53,18 +57,32 @@ void Console::setPosition(int x, int y) {
 	SetConsoleCursorPosition(out, pos);
 }
 
-MOUSE_EVENT_RECORD Console::waitForMouseEvent() {
+void Console::registerListener(MouseClickListener* listener) {
+	listeners.insert(listener);
+}
+
+void Console::unregisterListener(MouseClickListener* listener) {
+	listeners.erase(listener);
+}
+
+void Console::processConsoleInput() {
 	INPUT_RECORD rec;
 	DWORD count = 0;
-	while (true) {
-		ReadConsoleInput(in, &rec, 1, &count);
-		if (rec.EventType == MOUSE_EVENT )  return rec.Event.MouseEvent;
+	while (running) {
+		GetNumberOfConsoleInputEvents(in, &count);
+		if (count == 0) {
+			Sleep(100);
+		}
+		else {
+			ReadConsoleInput(in, &rec, 1, &count);
+			if (rec.EventType == MOUSE_EVENT && rec.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED)
+				handleMouseClick(rec.Event.MouseEvent.dwMousePosition);
+		}
 	}
 }
 
-COORD Console::waitForMouseClick() {
-	while (true) {
-		MOUSE_EVENT_RECORD ev = waitForMouseEvent();
-		if (ev.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED) return ev.dwMousePosition;
-	}
+void Console::handleMouseClick(COORD ev) {
+	std::set<MouseClickListener*>::iterator it;
+	for (it = listeners.begin(); it != listeners.end(); it++)
+		(*it)->onMouseClick(ev);
 }

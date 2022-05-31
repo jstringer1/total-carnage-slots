@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <windows.h>
+#include <thread>
+#include <set>
 
 enum COLOUR {
     COLOUR_BLACK = 0,
@@ -22,6 +24,11 @@ enum COLOUR {
     COLOUR_BRIGHT_WHITE = 15
 };
 
+class MouseClickListener {
+public:
+    virtual void onMouseClick(COORD pos) = 0;
+};
+
 class Console {
 public:
     Console();
@@ -32,9 +39,14 @@ public:
     void setColour(COLOUR foreground, COLOUR background);
     void setPosition(int x, int y);
     void setColourAndPosition(COLOUR foreground, COLOUR background, int x, int y);
-    MOUSE_EVENT_RECORD waitForMouseEvent();
-    COORD waitForMouseClick();
+    void registerListener(MouseClickListener* listener);
+    void unregisterListener(MouseClickListener* listener);
 private:
     HANDLE in;
     HANDLE out;
+    std::thread userInputThread;
+    bool running;
+    std::set<MouseClickListener*> listeners;
+    void processConsoleInput();
+    void handleMouseClick(COORD ev);
 };
