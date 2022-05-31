@@ -2,7 +2,7 @@
 
 A simple slots game where the GUI is drawn in a console window.
 
-![screenshot](https://bitbucket.ingg.com/users/john.stringer/repos/superslots/raw/screenshot/Screenshot.png?at=refs%2Fheads%2Fmaster)
+![screenshot](screenshot/Screenshot.png)
 
 ### THEORETICAL RETURN TO PLAYER
 
