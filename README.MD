@@ -2,6 +2,8 @@
 
 A simple slots game where the GUI is drawn in a console window.
 
+![screenshot](https://bitbucket.ingg.com/users/john.stringer/repos/superslots/raw/screenshot/Screenshot.png?at=refs%2Fheads%2Fmaster)
+
 ### THEORETICAL RETURN TO PLAYER
 
 The game has a theoretical RTP of 82%. Game outcome is determined by random numbers drawn in the range 0(inclusive) and 80000(exclusive). The games "outcome type" is then calculated from the random number based on the table below:
