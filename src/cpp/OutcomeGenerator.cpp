@@ -7,7 +7,7 @@ OutcomeGenerator::OutcomeGenerator() {
 OUTCOME OutcomeGenerator::generateOutcome() {
 	OUTCOME outcome;
 	outcome.stake = 20;
-	outcome.randomNumber = nextInt(80000);
+	outcome.randomNumber = nextInt(100000);
 	outcome.type = randomNumberToOutcomeType(outcome.randomNumber);
 	if (outcome.type == THREE_BELLS) populate3BellsOutcome(&outcome);
 	else if (outcome.type == THREE_SYMBOLS) populate3OfAKindOutcome(&outcome);
@@ -50,7 +50,7 @@ void OutcomeGenerator::populateLossOutcome(OUTCOME* outcome) {
 OUTCOME_TYPE OutcomeGenerator::randomNumberToOutcomeType(unsigned int rn) {
 	if (rn < 328) return THREE_BELLS;
 	else if (rn < 3608) return THREE_SYMBOLS;
-	else if (rn < 20008) return TWO_SYMBOLS;
+	else if (rn < 26568) return TWO_SYMBOLS;
 	else return LOSE;
 }
 

@@ -1,5 +1,4 @@
 #include "GUI.h"
-#include "Symbols.h"
 #include "resource.h"
 
 GUI::GUI(Console* console, Wallet* wallet, SoundController *sound) {
