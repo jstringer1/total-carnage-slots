@@ -82,9 +82,7 @@ void GUI::showOutcome(OUTCOME result) {
 			reel2->drawCurrentFrame(COLOUR_WHITE);
 		}
 		if (result.reel1 == result.reel3) reel3->drawCurrentFrame(COLOUR_WHITE);
-		if (result.reel1 == result.reel2) console->printResource(IDR_WINLINE, COLOUR_AQUA, COLOUR_BLACK, 34);
 		Sleep(frameDuration*3);
-		if (result.reel1 == result.reel2) console->printResource(IDR_WINLINE, COLOUR_LIGHT_RED, COLOUR_BLACK, 34);
 		reel1->drawCurrentFrame(COLOUR_BLACK);
 		reel2->drawCurrentFrame(COLOUR_BLACK);
 		reel3->drawCurrentFrame(COLOUR_BLACK);
