@@ -17,9 +17,9 @@ The game has a theoretical RTP of 82%. Game outcome is determined by random numb
 
 Given that all 80k outcomes should be equally likely, if a player was to play 80k spins, theoretically they'd hit all 80k possibilities giving a total prize, total stake and theoretical RTP of:
 
-TOT TOT STAKE  = 6560 + 65600 + 328000 + 1199840 = 1600000
-TOT TOT PRIZE  = 164000 + 328000 + 820000        = 1312000
-THORETICAL RTP = 1312000 / 1600000               =    0.82
+| TOT TOT STAKE                             | TOT TOT PRIZE                      | THORETICAL RTP           |
+|-------------------------------------------|------------------------------------|--------------------------|
+| 6560 + 65600 + 328000 + 1199840 = 1600000 | 164000 + 328000 + 820000 = 1312000 | 1312000 / 1600000 = 0.82 |
 
 You can test the actual RTP over 100k cycles by adding a command line argument representing a relative file path to a location to output CSV results to for the 100k cycles.
 
