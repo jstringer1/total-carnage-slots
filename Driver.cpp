@@ -6,49 +6,20 @@
 #include <iostream>
 #include <fstream>
 #include "SoundEffect.h"
-
-std::string getSymbolName(SYMBOL symbol) {
-	if (symbol == CHERRY) return std::string("CHERRY");
-	else if (symbol == BELL) return std::string("BELL");
-	else if (symbol == LEMMON) return std::string("LEMMON");
-	else if (symbol == ORANGE) return std::string("ORANGE");
-	else if (symbol == STAR) return std::string("STAR");
-	return std::string("SEVEN");
-}
-
-void runRtpTest(OutcomeGenerator rng, char* outfile) {
-	std::ofstream output;
-	output.open(outfile, std::ios_base::app);
-	output << "REEL1, REEL2, REEL3, STAKE, PRIZE, TOTAL_STAKE, TOTAL_PRIZE, RUNNING_RTP\n";
-
-	char buffer[1024];
-	double totstake = 0;
-	double totprize = 0;
-	double rtp;
-	unsigned int gamecycles = 100000;
-	for (int i = 0; i < gamecycles; i++) {
-		OUTCOME outcome = rng.generateOutcome();
-		totstake += outcome.stake;
-		totprize += outcome.prize;
-		rtp = totprize / totstake;
-		sprintf_s(buffer, 1024, "%s, %s, %s, %u, %u, %.6f, %.6f, %.6f\n",
-			getSymbolName(outcome.reel1).c_str(), getSymbolName(outcome.reel2).c_str(), getSymbolName(outcome.reel3).c_str(),
-			outcome.stake, outcome.prize, totstake, totprize, rtp);
-		output << buffer;
-	}
-	output.close();
-	printf("OVERALL RTP AFTER %u GAMECYCLES IS %.6f\n", gamecycles, rtp);
-}
+#include "RTPTool.h"
 
 void main(int argc, char* argv[]) {
 	OutcomeGenerator rng = OutcomeGenerator();
 	if (argc > 1) {
-		runRtpTest(rng, argv[1]);
+		unsigned int cycles = 100000;
+		RTPTool rtpTool = RTPTool(argv[1], &rng, cycles);
+		double rtp = rtpTool.runTest();
+		printf("OVERALL RTP AFTER %u GAMECYCLES IS %.6f\n", cycles, rtp);
 	} else {
 		SoundController sound = SoundController();
 		sound.playILoveIt();
 		Wallet wallet = Wallet(10000);
-		Console console = Console();
+		Console console;
 		GUI gui = GUI(&console, &wallet, &sound);
 		while (wallet.getBalance() >= 20) {
 			UserInput input = gui.getButtons()->acceptUserInput();
