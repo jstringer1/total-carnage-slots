@@ -32,6 +32,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\target</OutDir>
+    <IntDir>..\target\build</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -50,31 +52,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BalancePanel.cpp" />
-    <ClCompile Include="GUI.cpp" />
-    <ClCompile Include="Console.cpp" />
-    <ClCompile Include="Driver.cpp" />
-    <ClCompile Include="ButtonPanel.cpp" />
-    <ClCompile Include="ReelPanel.cpp" />
-    <ClCompile Include="RTPTool.cpp" />
-    <ClCompile Include="SoundEffect.cpp" />
-    <ClCompile Include="OutcomeGenerator.cpp" />
-    <ClCompile Include="Wallet.cpp" />
+    <ClCompile Include="cpp/BalancePanel.cpp" />
+    <ClCompile Include="cpp/GUI.cpp" />
+    <ClCompile Include="cpp/Console.cpp" />
+    <ClCompile Include="cpp/Driver.cpp" />
+    <ClCompile Include="cpp/ButtonPanel.cpp" />
+    <ClCompile Include="cpp/ReelPanel.cpp" />
+    <ClCompile Include="cpp/RTPTool.cpp" />
+    <ClCompile Include="cpp/SoundEffect.cpp" />
+    <ClCompile Include="cpp/OutcomeGenerator.cpp" />
+    <ClCompile Include="cpp/Wallet.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BalancePanel.h" />
-    <ClInclude Include="ButtonPanel.h" />
-    <ClInclude Include="GUI.h" />
-    <ClInclude Include="Console.h" />
-    <ClInclude Include="ReelPanel.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="OutcomeGenerator.h" />
-    <ClInclude Include="RTPTool.h" />
-    <ClInclude Include="SoundEffect.h" />
-    <ClInclude Include="Wallet.h" />
+    <ClInclude Include="cpp/BalancePanel.h" />
+    <ClInclude Include="cpp/ButtonPanel.h" />
+    <ClInclude Include="cpp/GUI.h" />
+    <ClInclude Include="cpp/Console.h" />
+    <ClInclude Include="cpp/ReelPanel.h" />
+    <ClInclude Include="cpp/resource.h" />
+    <ClInclude Include="cpp/OutcomeGenerator.h" />
+    <ClInclude Include="cpp/RTPTool.h" />
+    <ClInclude Include="cpp/SoundEffect.h" />
+    <ClInclude Include="cpp/Wallet.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="TotalCarnageSlots.rc" />
+    <ResourceCompile Include="cpp/TotalCarnageSlots.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
