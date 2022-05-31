@@ -79,7 +79,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="JohnsSuperSlots.rc">
+    <ResourceCompile Include="TotalCarnageSlots.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
